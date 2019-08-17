@@ -5,10 +5,16 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.7.RELEASE"
 	kotlin("jvm") version "1.2.71"
 	kotlin("plugin.spring") version "1.2.71"
+	id("org.jetbrains.kotlin.plugin.noarg") version "1.2.71"
+}
+
+noArg {
+	annotation("javax.persistence.Entity")
+	annotation("javax.persistence.Embeddable")
 }
 
 group = "com.heycar"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {

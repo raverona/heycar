@@ -7,5 +7,6 @@ CREATE TABLE listings (
     year INTEGER NOT NULL,
     color VARCHAR NOT NULL,
     price INTEGER NOT NULL,
-    dealerId VARCHAR NOT NULL
+    dealer_id VARCHAR NOT NULL,
+    PRIMARY KEY(code, dealer_id)
 );
