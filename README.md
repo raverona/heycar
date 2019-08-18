@@ -19,3 +19,6 @@ Since the dealer_id is part of the composite identifier of each listing (along w
 Go to the root of the project and:  
 1- start the local environment by executing `docker-compose up -d`  
 2- start the project by executing `./gradlew bootRun`
+
+7- Stuff I wish I had more time to do:  
+More tests

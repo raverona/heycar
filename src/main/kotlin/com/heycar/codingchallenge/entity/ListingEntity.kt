@@ -34,4 +34,14 @@ data class ListingEntity(
                 val code: String,
                 val dealerId: String
         ): Serializable
+
+        fun withDealerId(dealerId: String): ListingEntity {
+                return this.copy(id = ListingId(code = this.id.code, dealerId = dealerId))
+        }
+
+        companion object {
+                fun List<ListingEntity>.withDealerId(dealerId: String): List<ListingEntity> {
+                        return this.map { listing -> listing.withDealerId(dealerId) }
+                }
+        }
 }

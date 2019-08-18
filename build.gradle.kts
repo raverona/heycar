@@ -32,6 +32,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("com.h2database:h2:1.4.199")
 	testImplementation("io.kotlintest:kotlintest-runner-junit5:3.3.2")
+	testImplementation("com.squareup.okhttp3:okhttp:3.14.2")
 }
 
 val test by tasks.getting(Test::class) {
