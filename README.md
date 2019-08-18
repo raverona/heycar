@@ -16,4 +16,6 @@ The search criteria available are only values equals make, model, year or color,
 Since the dealer_id is part of the composite identifier of each listing (along with 'code'), I'm assuming that the endpoint is actually `/vehicle_listings/{dealer_id}` and receives the dealer_id much like the `/upload_csv/{dealer_id}` endpoint
 
 6- How to run?  
-`./gradlew bootRun`
+Go to the root of the project and:  
+1- start the local environment by executing `docker-compose up -d`  
+2- start the project by executing `./gradlew bootRun`
