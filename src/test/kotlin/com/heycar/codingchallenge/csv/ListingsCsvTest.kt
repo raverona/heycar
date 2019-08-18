@@ -25,7 +25,7 @@ class ListingsCsvTest: FreeSpec() {
 
                     "Then all lines in the csv should output one entity" {
                         val csvFileLines = csvFile.split("\n")
-                        csvFileLines.shouldMatchGenerated(listingEntities)
+                        listingEntities.shouldMatch(csvFileLines)
                     }
                 }
             }
@@ -71,19 +71,19 @@ class ListingsCsvTest: FreeSpec() {
     }
 }
 
-private fun List<String>.shouldMatchGenerated(listingEntities: List<ListingEntity>) {
-    val csvLines = this.toMutableList()
+private fun List<ListingEntity>.shouldMatch(csvFileLines: List<String>) {
+    val csvLines = csvFileLines.toMutableList()
     val csvHeader = csvLines.removeAt(0).split(",", "/")
     val csvLinesWithoutHeader = csvLines.map { line -> line.split(",", "/") }
 
     csvLinesWithoutHeader.forEach { line ->
-        val matchingListing = listingEntities.first { listing -> listing.id.code.equals(line[csvHeader.indexOf("code")]) }
+        val matchingListing = this.first { listing -> listing.id.code.equals(line[csvHeader.indexOf("code")]) }
 
-        line[csvHeader.indexOf("make")] shouldBe matchingListing.make
-        line[csvHeader.indexOf("model")] shouldBe matchingListing.model
-        line[csvHeader.indexOf("power-in-ps")].toInt() shouldBe matchingListing.power
-        line[csvHeader.indexOf("year")].toInt() shouldBe matchingListing.year
-        line[csvHeader.indexOf("color")] shouldBe matchingListing.color
-        line[csvHeader.indexOf("price")].toInt() shouldBe matchingListing.price
+        matchingListing.make shouldBe line[csvHeader.indexOf("make")]
+        matchingListing.model shouldBe line[csvHeader.indexOf("model")]
+        matchingListing.power shouldBe line[csvHeader.indexOf("power-in-ps")].toInt()
+        matchingListing.year shouldBe line[csvHeader.indexOf("year")].toInt()
+        matchingListing.color shouldBe line[csvHeader.indexOf("color")]
+        matchingListing.price shouldBe line[csvHeader.indexOf("price")].toInt()
     }
 }
