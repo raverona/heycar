@@ -30,7 +30,12 @@ dependencies {
 	implementation("org.flywaydb:flyway-core:5.2.4")
 	runtime("org.postgresql:postgresql:42.2.6")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
+	testImplementation("com.h2database:h2:1.4.199")
+	testImplementation("io.kotlintest:kotlintest-runner-junit5:3.3.2")
+}
+
+val test by tasks.getting(Test::class) {
+	useJUnitPlatform { }
 }
 
 tasks.withType<KotlinCompile> {
