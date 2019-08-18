@@ -1,7 +1,8 @@
 package com.heycar.codingchallenge.controller
 
-import com.heycar.codingchallenge.entity.Listing
-import com.heycar.codingchallenge.entity.Listing.ListingId
+import com.heycar.codingchallenge.csv.ListingsCsv
+import com.heycar.codingchallenge.entity.ListingEntity
+import com.heycar.codingchallenge.entity.ListingEntity.ListingId
 import com.heycar.codingchallenge.repository.ListingsRepository
 import com.heycar.codingchallenge.repository.specification.ListingsSearchCriteria
 import com.heycar.codingchallenge.repository.specification.ListingsSpecification
@@ -14,14 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod.POST
 class ListingsController(private val listingsRepository: ListingsRepository) {
 
     @RequestMapping(path = ["/upload_csv/{dealer_id}"], method = [POST], consumes = [TEXT_PLAIN_VALUE], produces = [APPLICATION_JSON_VALUE])
-    fun receiveCsvListings(@PathVariable("dealer_id") dealerId: String, @RequestBody csvFile: String): String {
-        val lines = csvFile.split("\n")
-
-        return "hello $csvFile"
+    fun receiveCsvListings(@PathVariable("dealer_id") dealerId: String, @RequestBody csvFile: String): List<ListingEntity> {
+        return listingsRepository.saveAll(ListingsCsv(csvFile).asListOfLintingEntities().map { listing -> listing.copy(id = ListingId(listing.id.code, dealerId)) }).toList()
     }
 
     @RequestMapping(path = ["/vehicle_listings/{dealer_id}"], method = [POST], consumes = [APPLICATION_JSON_VALUE], produces = [APPLICATION_JSON_VALUE])
-    fun receiveJsonListings(@PathVariable("dealer_id") dealerId: String, @RequestBody jsonListings: List<Listing>): List<Listing> {
+    fun receiveJsonListings(@PathVariable("dealer_id") dealerId: String, @RequestBody jsonListings: List<ListingEntity>): List<ListingEntity> {
         return listingsRepository.saveAll(jsonListings.map { it.copy(id = ListingId(it.id.code, dealerId)) }).toList()
     }
 
@@ -29,7 +28,7 @@ class ListingsController(private val listingsRepository: ListingsRepository) {
     fun searchListings(@RequestParam(value = "make", required = false) make: String?,
                        @RequestParam(value = "model", required = false) model: String?,
                        @RequestParam(value = "year", required = false) year: Int?,
-                       @RequestParam(value = "color", required = false) color: String?): List<Listing> {
+                       @RequestParam(value = "color", required = false) color: String?): List<ListingEntity> {
 
         val makeSpecification = ListingsSpecification(ListingsSearchCriteria("make", make))
         val modelSpecification = ListingsSpecification(ListingsSearchCriteria("model", model))

@@ -6,7 +6,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "listings")
-data class Listing(
+data class ListingEntity(
         @EmbeddedId
         val id: ListingId,
         val make: String,

@@ -1,10 +1,10 @@
 package com.heycar.codingchallenge.repository
 
-import com.heycar.codingchallenge.entity.Listing
-import com.heycar.codingchallenge.entity.Listing.ListingId
+import com.heycar.codingchallenge.entity.ListingEntity
+import com.heycar.codingchallenge.entity.ListingEntity.ListingId
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface ListingsRepository: CrudRepository<Listing, ListingId>, JpaSpecificationExecutor<Listing>
+interface ListingsRepository: CrudRepository<ListingEntity, ListingId>, JpaSpecificationExecutor<ListingEntity>
