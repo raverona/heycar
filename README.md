@@ -1,9 +1,19 @@
 # heycar
 
 1- Why Postgre?  
+Postgre seemed a good choice because car listings tend to have a fixed schema, it can handle queries by multiple columns if the table size is not really huge, which seems to be the case
+
 2- CSV file format  
-3- Power and KW are the same?  
-4- Indexes on columns make, model, year and color 
-5- Search criterias available 
-6- Does /vehicle_listings/ endpoint receives an dealer_id?  
-7- How to run?
+I'm assuming the csv file format is fixed and every row always has the following values `code,make/model,power-in-ps,year,color,price` although in the order defined by the header
+
+3- Indexes on columns make, model, year and color 
+The indexes created on these columns are (model), (model, year), (model, color) and (model, year, color) because I thought these would be the most common criteria used
+
+4- Search criteria available  
+The search criteria available are only values equals make, model, year or color, for the sake of simplicity but since I implemented using Spring's Specification it could be expandable to other operands like greater or less than
+
+5- Does the `/vehicle_listings/` endpoint receives an dealer_id?  
+Since the dealer_id is part of the composite identifier of each listing (along with 'code'), I'm assuming that the endpoint is actually `/vehicle_listings/{dealer_id}` and receives the dealer_id much like the `/upload_csv/{dealer_id}` endpoint
+
+6- How to run?  
+`./gradlew bootRun`
